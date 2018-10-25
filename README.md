@@ -1,27 +1,13 @@
-#SIA (Sistem Informasi Akademik) dengan Flask (micro web framework Python)
+# Aktifitas Yang Dikerjakan
 ---
-![image](dist/screencapture-localhost-admin-1489830381901.png)
+1. Pembuatan Home (Home + Menu)
+2. Pembuatan Modul Master Produk
+3. Pembuatab Laporan (Grafik)
 
-# Cara Install SIA
----
-**Requirement**
-
-1. Flask==0.12
-
-2. Jinja2==2.9.5
-
-3. MySQL-python==1.2.5
-
-4. Werkzeug==0.11.15
-
-
-
-# Install SIA ke localhost
----
 
 **Copy Source Code**
 
-`git clone https://github.com/rosyidridho/flask-sia.git`
+`git clone https://github.com/rosyidridho/penjualan.git`
 
 **Intall Vitualenv**
 
@@ -33,12 +19,13 @@
 
 `(venv)$ pip install -r requirements.txt`
 
+**Dump MySQL database**
+'table.sql'
+
 **Setup**
 
 1. Ubah koneksi database pada file config.json
 
-2. Eksekusi file db.py `python query/db.py`
-
 **Menjalankan SIA di localhost**
 
-`(venv)$ python manage.py runserver`
+`(venv)$ python manage.py runserver -r -d`
