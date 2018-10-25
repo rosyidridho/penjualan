@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chart</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% include 'base/header.html' %}
+  <style>
+  .table-wrapper-scroll-y {
+    display: block;
+    max-height: 350px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+  </style>
+  </head>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <!-- Navbar -->
+  {% include 'base/navbar.html' %}
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  {% include 'base/sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Grafik</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-lg-6">
+            <div class="card" style="height: 450px;;">
+              <div class="card-header">
+                <center><h4>Jumlah Penjualan</h4></center>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="chart-responsive">
+                      <canvas id="pieChart" height="250"></canvas>
+                    </div>
+                    <!-- ./chart-responsive -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-md-6">
+                    <ul class="chart-legend clearfix">
+                      <li><i class="fa fa-square" style="color:yellow"></i> Selimut </li>
+                      <li><i class="fa fa-square" style="color:orange"></i> Taplak Meja, Bulat </li>
+                      <li><i class="fa fa-square" style="color:red"></i> Piring Bulat </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-6">
+                      <ul class="chart-legend clearfix">
+                        <li><i class="fa fa-square" style="color:blue"></i> Piring Persegi </li>
+                        <li><i class="fa fa-square" style="color:green"></i> Bantal </li>
+                        <li><i class="fa fa-square" style="color: purple"></i> Bantal </li>
+                      </ul>
+                    </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-lg-6">
+              <!-- Line chart -->
+              <div class="card card-primary card-outline">
+                <div class="card-header">
+                  <center><h3>Jumlah Penjualan</h3></center>
+                </div>
+                <div class="card-body">
+                  <div id="line-chart" style="height: 300px;"></div>
+                
+                  <div class="row">
+                      <div class="col-lg-6">
+                          <ul class="chart-legend clearfix">
+                            <li><i class="fa fa-square"></i>(0.0) Selimut </li>
+                            <li><i class="fa fa-square"></i>(1.0) Taplak Meja, Bulat </li>
+                            <li><i class="fa fa-square"></i>(2.0) Piring Bulat </li>
+                          </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="chart-legend clearfix">
+                              <li><i class="fa fa-square"></i>(3.0) Piring Persegi </li>
+                              <li><i class="fa fa-square"></i>(4.0) Bantal </li>
+                              <li><i class="fa fa-square"></i>(5.0) Bantal </li>
+                            </ul>
+                          </div>
+                        <!-- /.col -->
+                  </div>
+                </div>                
+                <!-- /.card-body-->
+                
+              </div>
+              <!-- /.card -->  
+            </div>
+            <!-- /.col -->
+
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  {% include "base/footer.html" %}
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="{{url_for('static', filename='plugins/jquery/jquery.min.js')}}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{url_for('static', filename='plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<!-- SlimScroll -->
+<script src="{{url_for('static', filename='plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{url_for('static', filename='plugins/fastclick/fastclick.js')}}"></script>
+<!-- AdminLTE App -->
+<script src="{{url_for('static', filename='dist/js/adminlte.min.js')}}"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="{{url_for('static', filename='dist/js/demo.js')}}"></script>
+<!-- ChartJS 1.0.2 -->
+<script src="{{url_for('static', filename='plugins/chartjs-old/Chart.min.js')}}"></script>
+<!-- page script -->
+
+<script>
+  $(function(){
+    'use strict'
+    //-------------
+    //- PIE CHART -
+    //-------------
+    // Get context with jQuery - using jQuery's .get() method.
+    var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+    var pieChart       = new Chart(pieChartCanvas)
+    var PieData        = [
+      {
+        value    : 10000,
+        color    : 'yellow',
+        label    : 'Selimut'
+      },
+      {
+        value    : 20000,
+        color    : 'orange',
+        label    : 'Taplak Meja, Bulat'
+      },
+      {
+        value    : 294000,
+        color    : 'red',
+        label    : 'Piring Bulat'
+      },
+      {
+        value    : 400000,
+        color    : 'blue',
+        label    : 'Piring Persegi'
+      },
+      {
+        value    : 720000,
+        color    : 'green',
+        label    : 'Bantal'
+      },
+      {
+        value    : 600000,
+        color    : 'purple',
+        label    : 'Bantal'
+      }
+    ]
+    var pieOptions     = {
+      //Boolean - Whether we should show a stroke on each segment
+      segmentShowStroke    : true,
+      //String - The colour of each segment stroke
+      segmentStrokeColor   : '#fff',
+      //Number - The width of each segment stroke
+      segmentStrokeWidth   : 1,
+      //Number - The percentage of the chart that we cut out of the middle
+      percentageInnerCutout: 40, // This is 0 for Pie charts
+      //Number - Amount of animation steps
+      animationSteps       : 100,
+      //String - Animation easing effect
+      animationEasing      : 'easeOutBounce',
+      //Boolean - Whether we animate the rotation of the Doughnut
+      animateRotate        : true,
+      //Boolean - Whether we animate scaling the Doughnut from the centre
+      animateScale         : false,
+      //Boolean - whether to make the chart responsive to window resizing
+      responsive           : true,
+      // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+      maintainAspectRatio  : false
+    }
+    //Create pie or douhnut chart
+    // You can switch between pie and douhnut using the method below.
+    pieChart.Doughnut(PieData, pieOptions)
+    //-----------------
+    //- END PIE CHART -
+    //-----------------
+  })  
+</script>
+
+<!-- FLOT CHARTS -->
+<script src="{{url_for('static', filename='plugins/flot/jquery.flot.min.js')}}"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="{{url_for('static', filename='plugins/flot/jquery.flot.resize.min.js')}}"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="{{url_for('static', filename='plugins/flot/jquery.flot.pie.min.js')}}"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+<script src="{{url_for('static', filename='plugins/flot/jquery.flot.categories.min.js')}}"></script>
+
+<script>
+ /*
+     * LINE CHART
+     * ----------
+     */
+    //LINE randomly generated data
+
+    var sin = [],
+        cos = []
+    sin.push([0, 0])
+    sin.push([1, 10000])
+    sin.push([2, 20000])
+    sin.push([3, 294000])
+    sin.push([4, 400000])
+    sin.push([5, 720000])
+    sin.push([6, 600000])
+    var line_data1 = {
+      data : sin,
+      color: 'red'
+    }
+    $.plot('#line-chart', [line_data1], {
+      grid  : {
+        hoverable  : true,
+        borderColor: '#f3f3f3',
+        borderWidth: 1,
+        tickColor  : '#f3f3f3'
+      },
+      series: {
+        shadowSize: 0,
+        lines     : {
+          show: true
+        },
+        points    : {
+          show: true
+        }
+      },
+      lines : {
+        fill : false,
+        color: ['yellow', 'red']
+      },
+      yaxis : {
+        show: true
+      },
+      xaxis : {
+        show: true
+      }
+    })
+    //Initialize tooltip on hover
+    $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
+      position: 'absolute',
+      display : 'none',
+      opacity : 0.8
+    }).appendTo('body')
+    $('#line-chart').bind('plothover', function (event, pos, item) {
+
+      if (item) {
+        var x = item.datapoint[0].toFixed(2),
+            y = item.datapoint[1].toFixed(2)
+
+        $('#line-chart-tooltip').html(item.series.label + ' of ' + x + ' = ' + y)
+          .css({
+            top : item.pageY + 5,
+            left: item.pageX + 5
+          })
+          .fadeIn(200)
+      } else {
+        $('#line-chart-tooltip').hide()
+      }
+
+    })
+    /* END LINE CHART */
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+    "app_name": "Penjualan",
+    "description": "",
+    "version": "0.1",
+    "license": "MIT",
+    "db": {
+        "db_host": "localhost",
+        "db_user": "root",
+        "db_password": "rosyidridho",
+        "db_name": "db_penjualan"
+    },
+    "status": "development",
+    "upload_folder": "",
+    "upload_url": "",
+    "import_folder": "",
+    "static_path":"static.ta.com",
+    "gmt":"+7"
+}
